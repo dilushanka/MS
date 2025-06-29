@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebLink Organizer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --dark: #1e1e2e;
+            --darker: #161622;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--light);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--accent), #f72585);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: #adb5bd;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+        
+        .search-container input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border-radius: 50px;
+            border: none;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            font-size: 1rem;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+        
+        .search-container input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+        
+        .search-container i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+        
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .category-btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: #e9ecef;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .link-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transform: translateY(0);
+        }
+        
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: rgba(67, 97, 238, 0.3);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: rgba(67, 97, 238, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .favicon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+        
+        .website-info {
+            flex: 1;
+        }
+        
+        .website-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        .website-info .category {
+            font-size: 0.85rem;
+            color: var(--accent);
+            display: inline-block;
+            padding: 3px 10px;
+            background: rgba(72, 149, 239, 0.15);
+            border-radius: 30px;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .description {
+            color: #ced4da;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            min-height: 60px;
+        }
+        
+        .visit-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: rgba(67, 97, 238, 0.15);
+            color: var(--accent);
+            border: 1px solid rgba(72, 149, 239, 0.3);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .visit-btn:hover {
+            background: rgba(67, 97, 238, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-top: 50px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 25px;
+            border-radius: 10px;
+            min-width: 150px;
+        }
+        
+        .stat-item .number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            .categories {
+                justify-content: flex-start;
+                padding: 0 15px;
+            }
+            
+            .links-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .stat-item {
+                min-width: 120px;
+                padding: 12px 15px;
+            }
+            
+            .stat-item .number {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .categories {
+                justify-content: center;
+            }
+            
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stat-item {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>WebLink Organizer</h1>
+            <p class="tagline">A beautifully organized collection of your favorite websites. Access all your resources in one place.</p>
+            
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Search websites...">
+            </div>
+            
+            <div class="categories">
+                <button class="category-btn active" data-category="all">All Sites</button>
+                <button class="category-btn" data-category="homepage">Home Page</button>
+                <button class="category-btn" data-category="design">Design</button>
+                <button class="category-btn" data-category="productivity">Productivity</button>
+                <button class="category-btn" data-category="learning">Learning</button>
+                <button class="category-btn" data-category="social">Social</button>
+            </div>
+        </header>
+        
+        <main>
+            <div class="links-grid" id="links-container">
+                <!-- Link cards will be generated here -->
+            </div>
+        </main>
+        
+        <footer>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="number">42</div>
+                    <div class="label">Websites</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">6</div>
+                    <div class="label">Categories</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">128</div>
+                    <div class="label">Visits</div>
+                </div>
+            </div>
+            <p>© 2023 WebLink Organizer | Keep your digital world organized</p>
+        </footer>
+    </div>
+
+    <script>
+        // Sample website data
+        const websites = [
+            {
+                id: 1,
+                name: "Dilushanka Moblile",
+                url: "https://dilushanka.github.io",
+                category: "homepage",
+                description: "The world's leading software development platform for version control and collaboration."
+            },
+            {
+                id: 2,
+                name: "Warrenty",
+                url: "https://dilushanka.github.io/warrenty",
+                category: "design",
+                description: "Discover the world's top designers & creatives sharing their work and design process."
+            },
+            {
+                id: 3,
+                name: "Status",
+                url: "https://dilushanka.github.io/status",
+                category: "productivity",
+                description: "All-in-one workspace for notes, tasks, wikis, and databases. Organize everything."
+            },
+            {
+                id: 4,
+                name: "Status Add",
+                url: "https://dilushanka.github.io/Status/add.html",
+                category: "learning",
+                description: "Resources for developers, by developers. Documentation for web technologies."
+            }
+            
+           
+        ];
+
+        // DOM elements
+        const linksContainer = document.getElementById('links-container');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const searchInput = document.getElementById('search-input');
+        
+        // Function to generate favicon based on website name
+        function generateFavicon(name) {
+            return name.charAt(0).toUpperCase();
+        }
+        
+        // Function to render website cards
+        function renderWebsites(websitesToRender) {
+            linksContainer.innerHTML = '';
+            
+            websitesToRender.forEach(website => {
+                const card = document.createElement('div');
+                card.className = 'link-card';
+                card.dataset.category = website.category;
+                
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="favicon">${generateFavicon(website.name)}</div>
+                        <div class="website-info">
+                            <h3>${website.name}</h3>
+                            <span class="category">${website.category.charAt(0).toUpperCase() + website.category.slice(1)}</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="description">${website.description}</p>
+                        <a href="${website.url}" target="_blank" class="visit-btn">
+                            <i class="fas fa-external-link-alt"></i> Visit Website
+                        </a>
+                    </div>
+                `;
+                
+                linksContainer.appendChild(card);
+            });
+        }
+        
+        // Initial render
+        renderWebsites(websites);
+        
+        // Category filtering
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const category = button.dataset.category;
+                
+                if (category === 'all') {
+                    renderWebsites(websites);
+                } else {
+                    const filteredWebsites = websites.filter(website => website.category === category);
+                    renderWebsites(filteredWebsites);
+                }
+            });
+        });
+        
+        // Search functionality
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            const filteredWebsites = websites.filter(website => 
+                website.name.toLowerCase().includes(searchTerm) || 
+                website.description.toLowerCase().includes(searchTerm) || 
+                website.category.toLowerCase().includes(searchTerm)
+            );
+            
+            renderWebsites(filteredWebsites);
+        });
+    </script>
+</body>
+</html>
