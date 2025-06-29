@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mobile Repair Job Tracker</title>
+  <link rel="shortcut icon" href="https://dilushanka.github.io/assets/img/favicons/apple-touch-icon.png" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f4f6f9;
+      padding: 2rem;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #4361ee;
+      margin-bottom: 1.5rem;
+    }
+    .form-card {
+      background: white;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #444;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #4361ee;
+    }
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    .btn-primary {
+      background-color: #4361ee;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #3a56d4;
+    }
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    #authModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      position: relative;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #777;
+    }
+    .close:hover {
+      color: #333;
+    }
+    .status-message {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      display: none;
+    }
+    .success {
+      background-color: #e6f7ee;
+      color: #28a745;
+      display: block;
+    }
+    .error {
+      background-color: #fde8e8;
+      color: #dc3545;
+      display: block;
+    }
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+      .form-card {
+        padding: 1.5rem;
+      }
+      .btn-row {
+        flex-direction: column;
+      }
+      .btn-row button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Mobile Repair Job Tracker</h1>
+
+  <div class="form-card">
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="newCustomerName">Customer Name *</label>
+        <input type="text" id="newCustomerName" required placeholder="Enter customer name" />
+      </div>
+      <div class="form-group">
+        <label for="newDeviceModel">Device Model *</label>
+        <input type="text" id="newDeviceModel" required placeholder="Enter device model" />
+      </div>
+      <div class="form-group">
+        <label for="newFault">Fault Description *</label>
+        <input type="text" id="newFault" required placeholder="Describe the fault" />
+      </div>
+      <div class="form-group">
+        <label for="newEstimatedCompletion">Estimated Completion *</label>
+        <input type="date" id="newEstimatedCompletion" required />
+      </div>
+      <div class="form-group">
+        <label for="newRepairCost">Repair Cost *</label>
+        <input type="number" id="newRepairCost" required placeholder="Enter repair cost" />
+      </div>
+
+      <button type="submit" class="btn-primary">Add Repair Job</button>
+      
+      <div class="btn-row">
+        <button type="button" id="saveToSheets" class="btn-primary">Save to Google Sheets</button>
+        <button type="button" id="loadFromSheets" class="btn-primary">Load from Google Sheets</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Status Message -->
+  <div id="statusMessage" class="status-message"></div>
+
+  <!-- Google Auth Modal -->
+  <div id="authModal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Google Sheets Authorization</h3>
+      <p>This app needs permission to access your Google Sheets to save and load repair job data.</p>
+      <button id="authButton" class="btn-primary">Authorize with Google</button>
+    </div>
+  </div>
+
+  <!-- Google API Loader -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="scriptst.js"></script>
+</body>
+</html>

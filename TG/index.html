@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TG Stock Management</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Tempered Glass Inventory</h1>
+
+        <div class="row mb-3 align-items-center">
+            <div class="col-auto">
+                <button id="authorize_button" class="btn btn-primary">Authorize Google Sheet Access</button>
+                <button id="signout_button" class="btn btn-danger" style="display:none;">Sign Out</button>
+            </div>
+            <div class="col-auto">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="rememberMeCheck" checked>
+                    <label class="form-check-label" for="rememberMeCheck">
+                        Remember me (1 month)
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <input type="text" id="searchBox" class="form-control" placeholder="Search Tempered Glass Model...">
+            </div>
+        </div>
+
+        <div id="temperedGlassContainer" class="row">
+            </div>
+
+        <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="orderModalLabel">Place Order</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Model:</strong> <span id="modalModelName"></span></p>
+                        <p><strong>Variety:</strong> <span id="modalVariety"></span></p>
+                        <p><strong>Current Stock:</strong> <span id="modalCurrentStock"></span></p>
+                        <p><strong>Price:</strong> ₹<span id="modalPrice"></span></p>
+                        <div class="form-group">
+                            <label for="orderQuantity">Order Quantity (will reduce stock):</label>
+                            <input type="number" class="form-control" id="orderQuantity" value="1" min="1">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="confirmOrderButton">Confirm Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Repair Status Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <link rel="shortcut icon" href="https://dilushanka.github.io/assets/img/favicons/apple-touch-icon.png" type="image/x-icon">
+    <style>
+        .search-container,.status-container{box-shadow:0 10px 30px rgba(0,0,0,.05)}:root{--primary:#6c5ce7;--secondary:#a29bfe;--dark:#2d3436;--light:#f5f6fa;--success:#00b894;--warning:#fdcb6e;--danger:#d63031;--info:#0984e3}*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}body{background-color:var(--light);color:var(--dark);min-height:100vh;background-image:radial-gradient(circle at 10% 20%,rgba(108,92,231,.1) 0,rgba(255,255,255,.9) 90%)}.container{max-width:1200px;margin:0 auto;padding:2rem}.status-message,.status-progress{margin-top:2rem}header{text-align:center;margin-bottom:3rem;animation:1s fadeInDown}.logo{font-size:2.5rem;font-weight:700;color:var(--primary);margin-bottom:.5rem;display:flex;align-items:center;justify-content:center}.logo i{margin-right:15px;animation:2s infinite pulse}.progress-title i,.search-title i{margin-right:10px}.tagline{color:var(--dark);opacity:.8;font-weight:300}.search-container{background:#fff;border-radius:15px;padding:2rem;margin-bottom:3rem;transform:translateY(0);transition:transform .3s,box-shadow .3s;animation:1s fadeInUp}.search-container:hover{transform:translateY(-5px);box-shadow:0 15px 35px rgba(0,0,0,.1)}.search-title{font-size:1.5rem;margin-bottom:1.5rem;color:var(--primary);display:flex;align-items:center}.btn,.input-group input{font-size:1rem;transition:.3s}.search-form{display:flex;gap:15px;flex-wrap:wrap}.input-group{flex:1;min-width:250px}.input-group label{display:block;margin-bottom:8px;font-weight:500;color:var(--dark)}.input-group input{width:100%;padding:12px 15px;border:2px solid #dfe6e9;border-radius:8px}.input-group input:focus{border-color:var(--primary);outline:0;box-shadow:0 0 0 3px rgba(108,92,231,.2)}.btn{background:var(--primary);color:#fff;border:none;padding:12px 25px;border-radius:8px;cursor:pointer;font-weight:500;align-self:flex-end}.btn:hover{background:#5649c0;transform:translateY(-2px)}.btn:active{transform:translateY(0)}.status-container{background:#fff;border-radius:15px;padding:2rem;animation:1.5s fadeIn;display:none}.status-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid #eee}.status-title{font-size:1.5rem;color:var(--primary)}.detail-title,.status-id,footer{font-size:.9rem}.status-id{background:#f0f0f0;padding:5px 10px;border-radius:20px}.status-details{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem}.detail-card{background:#f9f9f9;padding:1.5rem;border-radius:10px;transition:.3s}.detail-card:hover{transform:translateY(-5px);box-shadow:0 5px 15px rgba(0,0,0,.05)}.detail-title{color:#7f8c8d;margin-bottom:5px}.detail-value{font-size:1.1rem;font-weight:500}.progress-title{font-size:1.1rem;margin-bottom:1rem;display:flex;align-items:center}.progress-title i{color:var(--primary)}.progress-steps{display:flex;justify-content:space-between;position:relative;margin-bottom:2rem}.progress-bar,.progress-steps::before{position:absolute;top:15px;left:0;height:4px}.progress-steps::before{content:'';right:0;background:#dfe6e9;z-index:1}.progress-bar{background:var(--primary);z-index:2;transition:width 1s}.step{display:flex;flex-direction:column;align-items:center;z-index:3}.step-icon{width:34px;height:34px;border-radius:50%;background:#fff;border:4px solid #dfe6e9;display:flex;align-items:center;justify-content:center;color:#b2bec3;font-size:.8rem;margin-bottom:5px;transition:.5s}.loading,.not-found{display:none;text-align:center}.step.active .step-icon{border-color:var(--primary);color:var(--primary);background:#fff}.step.completed .step-icon{border-color:var(--primary);background:var(--primary);color:#fff}.step-label{font-size:.8rem;color:#7f8c8d;text-align:center}.step.active .step-label{color:var(--dark);font-weight:500}.message-title,.step.completed .step-label{color:var(--primary)}.status-message{background:#f0f5f9;padding:1.5rem;border-radius:10px;border-left:4px solid var(--primary)}.message-title{font-weight:500;margin-bottom:.5rem}.not-found{padding:2rem}.not-found i{font-size:3rem;color:#d63031;margin-bottom:1rem}.not-found h3{margin-bottom:.5rem;color:var(--dark)}.not-found p,footer{color:#7f8c8d}footer{text-align:center;margin-top:3rem;padding-top:2rem;border-top:1px solid #eee}.loading{padding:1rem}.loading i{font-size:2rem;color:var(--primary);animation:1s linear infinite spin}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}@keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@media (max-width:768px){.container{padding:1rem}.logo{font-size:2rem}.search-form{flex-direction:column;gap:20px}.btn{width:100%}.progress-steps{flex-wrap:wrap;gap:20px}.step{flex:1 0 100px}}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-mobile-alt"></i>
+                <span>Dilushanka Mobile</span>
+            </div>
+            <p class="tagline">Track your device repair status in real-time</p>
+        </header>
+
+        <div class="search-container">
+            <h2 class="search-title">
+                <i class="fas fa-search"></i>
+                Check Repair Status
+            </h2>
+            <form class="search-form" id="statusForm">
+                <div class="input-group">
+                    <label for="jobNumber">Job Number</label>
+                    <input type="text" id="jobNumber" placeholder="Enter your job number" required>
+                </div>
+                <div class="input-group">
+                    <label for="customerName">Your Name</label>
+                    <input type="text" id="customerName" placeholder="Enter your name">
+                </div>
+                <button type="submit" class="btn">
+                    <i class="fas fa-paper-plane"></i> Check Status
+                </button>
+            </form>
+        </div>
+
+        <div class="loading" id="loading">
+            <i class="fas fa-spinner"></i>
+            <p>Searching for your repair job...</p>
+        </div>
+
+        <div class="not-found" id="notFound">
+            <i class="fas fa-exclamation-circle"></i>
+            <h3>Repair Job Not Found</h3>
+            <p>We couldn't find a repair job matching your details. Please check your job number and name.</p>
+        </div>
+
+        <div class="status-container" id="statusContainer">
+            <div class="status-header">
+                <h2 class="status-title">Repair Status</h2>
+                <span class="status-id">Job #<span id="displayJobNumber">12345</span></span>
+            </div>
+
+            <div class="status-details">
+                <div class="detail-card">
+                    <div class="detail-title">Customer Name</div>
+                    <div class="detail-value" id="displayCustomerName">John Doe</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-title">Device Model</div>
+                    <div class="detail-value" id="displayDeviceModel">iPhone 12 Pro</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-title">Fault Reported</div>
+                    <div class="detail-value" id="displayFault">Screen replacement</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-title">Date Received</div>
+                    <div class="detail-value" id="displayDate">May 15, 2023</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-title">Estimated Completion</div>
+                    <div class="detail-value" id="displayCompletion">May 18, 2023</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-title">Repair Cost</div>
+                    <div class="detail-value" id="displayCost">$129.99</div>
+                </div>
+            </div>
+
+            <div class="status-progress">
+                <h3 class="progress-title">
+                    <i class="fas fa-tasks"></i>
+                    Repair Progress
+                </h3>
+                <div class="progress-steps">
+                    <div class="progress-bar" id="progressBar" style="width: 33%;"></div>
+                    <div class="step completed">
+                        <div class="step-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="step-label">Received</div>
+                    </div>
+                    <div class="step completed">
+                        <div class="step-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="step-label">Diagnosed</div>
+                    </div>
+                    <div class="step active">
+                        <div class="step-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="step-label">In Progress</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="far fa-clock"></i>
+                        </div>
+                        <div class="step-label">Testing</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="far fa-check-circle"></i>
+                        </div>
+                        <div class="step-label">Completed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-message">
+                <h4 class="message-title">
+                    <i class="fas fa-info-circle"></i>
+                    Latest Update
+                </h4>
+                <p id="statusMessage">We've diagnosed your device and ordered the necessary parts. The screen should arrive tomorrow, and we'll begin the repair immediately.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 Dilushanka Mobile. All rights reserved.</p>
+            <p>Contact us: dilushankamobile@gmail.com | (94) 78 927-4648</p>
+        </footer>
+    </div>
+
+    <script>
+        // Google Sheets configuration
+        const SHEET_ID = '1okznadJPiXLygebie8jLStKPF6WUoDsrqqDAFogLS7o';
+        const API_KEY = 'AIzaSyBtIb_OEZXjsex6BlPZsk35ISO3CVKV2io';
+        const SHEET_NAME = 'status';
+
+        // DOM elements
+        const statusForm = document.getElementById('statusForm');
+        const loadingElement = document.getElementById('loading');
+        const notFoundElement = document.getElementById('notFound');
+        const statusContainer = document.getElementById('statusContainer');
+        const jobNumberInput = document.getElementById('jobNumber');
+        const customerNameInput = document.getElementById('customerName');
+
+        // Check for URL parameter when page loads
+        document.addEventListener('DOMContentLoaded', async function() {
+            updateProgress('received'); // Initialize progress bar
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const jobIdFromUrl = urlParams.get('jobid');
+            
+            if (jobIdFromUrl) {
+                // Auto-fill and search if job ID is in URL
+                jobNumberInput.value = jobIdFromUrl;
+                await handleFormSubmission(jobIdFromUrl, '');
+            }
+        });
+
+        // Form submission handler
+        statusForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const jobNumber = jobNumberInput.value.trim();
+            const customerName = customerNameInput.value.trim();
+            await handleFormSubmission(jobNumber, customerName);
+        });
+
+        // Unified form handling function
+        async function handleFormSubmission(jobNumber, customerName) {
+            if (!jobNumber) return;
+            
+            // Show loading state
+            loadingElement.style.display = 'block';
+            notFoundElement.style.display = 'none';
+            statusContainer.style.display = 'none';
+            
+            try {
+                // Fetch data from Google Sheets
+                const jobData = await fetchJobData(jobNumber, customerName);
+                
+                if (jobData) {
+                    displayJobStatus(jobData);
+                    statusContainer.style.display = 'block';
+                    
+                    // Update URL without reloading (for sharing)
+                    const newUrl = window.location.pathname + '?jobid=' + jobNumber;
+                    window.history.pushState({}, '', newUrl);
+                } else {
+                    notFoundElement.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                notFoundElement.style.display = 'block';
+            } finally {
+                loadingElement.style.display = 'none';
+            }
+        }
+
+        // Fetch job data from Google Sheets
+        async function fetchJobData(jobNumber, customerName) {
+            const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`API request failed with status ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (!data.values || data.values.length === 0) {
+                return null;
+            }
+            
+            // Get headers (first row)
+            const headers = data.values[0].map(header => header.trim());
+            
+            // Find the matching job
+            for (let i = 1; i < data.values.length; i++) {
+                const row = data.values[i];
+                const rowJobNumber = row[0] ? row[0].toString().trim() : '';
+                const rowCustomerName = row[1] ? row[1].toString().trim().toLowerCase() : '';
+                
+                if (rowJobNumber === jobNumber && 
+                    (customerName === '' || rowCustomerName.includes(customerName.toLowerCase()))) {
+                    // Create job data object with proper headers
+                    const jobData = {};
+                    headers.forEach((header, index) => {
+                        jobData[header] = row[index] || '';
+                    });
+                    return jobData;
+                }
+            }
+            
+            return null;
+        }
+
+        // Display job status in the UI
+        function displayJobStatus(jobData) {
+            // Update all display fields
+            document.getElementById('displayJobNumber').textContent = jobData['Job Number'] || 'N/A';
+            document.getElementById('displayCustomerName').textContent = jobData['Customer Name'] || 'Not provided';
+            document.getElementById('displayDeviceModel').textContent = jobData['Device Model'] || 'N/A';
+            document.getElementById('displayFault').textContent = jobData['Fault Description'] || 'N/A';
+            document.getElementById('displayDate').textContent = formatDate(jobData['Date Received']) || 'N/A';
+            
+            // Handle special cases
+            const completionDate = jobData['Estimated Completion'] === 'TBD' 
+                ? 'To be determined' 
+                : formatDate(jobData['Estimated Completion']);
+            document.getElementById('displayCompletion').textContent = completionDate;
+            
+            const repairCost = jobData['Repair Cost'] === 'Pending' 
+                ? 'To be determined' 
+                : jobData['Repair Cost'];
+            document.getElementById('displayCost').textContent = repairCost;
+            
+            document.getElementById('statusMessage').textContent = jobData['Status Update Message'] || 'No updates available.';
+            
+            // Update progress visualization
+            updateProgress(jobData['Status'] || '');
+        }
+
+        // Update the progress bar and steps
+        function updateProgress(status) {
+            let progressPercentage = 0;
+            const steps = document.querySelectorAll('.step');
+            
+            // Reset all steps
+            steps.forEach(step => {
+                step.classList.remove('completed', 'active');
+            });
+            
+            // Set progress based on status
+            status = (status || '').toLowerCase();
+            
+            if (status.includes('received')) {
+                progressPercentage = 20;
+                steps[0].classList.add('completed');
+                steps[1].classList.add('active');
+            } 
+            else if (status.includes('diagnosed')) {
+                progressPercentage = 40;
+                steps[0].classList.add('completed');
+                steps[1].classList.add('completed');
+                steps[2].classList.add('active');
+            } 
+            else if (status.includes('progress') || status.includes('repairing')) {
+                progressPercentage = 60;
+                steps[0].classList.add('completed');
+                steps[1].classList.add('completed');
+                steps[2].classList.add('completed');
+                steps[3].classList.add('active');
+            } 
+            else if (status.includes('testing')) {
+                progressPercentage = 80;
+                steps[0].classList.add('completed');
+                steps[1].classList.add('completed');
+                steps[2].classList.add('completed');
+                steps[3].classList.add('completed');
+                steps[4].classList.add('active');
+            } 
+            else if (status.includes('complete') || status.includes('ready')) {
+                progressPercentage = 100;
+                steps.forEach(step => step.classList.add('completed'));
+            } 
+            else {
+                // Default to first step
+                progressPercentage = 20;
+                steps[0].classList.add('completed');
+                steps[1].classList.add('active');
+            }
+            
+            // Animate progress bar
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = '0%';
+            setTimeout(() => {
+                progressBar.style.width = progressPercentage + '%';
+            }, 100);
+        }
+
+        // Format date for display
+        function formatDate(dateString) {
+            if (!dateString || dateString.trim() === '') return '';
+            
+            try {
+                const date = new Date(dateString);
+                return isNaN(date.getTime()) ? dateString : date.toLocaleDateString();
+            } catch {
+                return dateString;
+            }
+        }
+    </script>
+</body>
+</html>
